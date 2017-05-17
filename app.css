@@ -3,14 +3,47 @@
     color: rgb(25, 25, 25);
 }
 
+a {
+    color: black;
+}
+
+    a:hover {
+        color: #cc0000;
+    }
+
+header {
+    background-color: rgba(0, 0, 0, 0.69);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    z-index: 100;
+}
+
+.header-title {
+    color: white;
+    align-self: center;
+    font-size: 20px;
+    margin-left: 30px;
+}
+
+.main-title {
+    margin-bottom: 30px;
+}
+
 .container {
-    padding-top: 50px;
+    padding-top: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .action-bar {
+    background-color: rgba(84, 87, 93, 0.16);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     width: 800px;
     display: flex;
     justify-content: space-between;
@@ -41,9 +74,13 @@
     position: relative;
 }
 
-.importance > .disabled { color: gray !important; }
+.importance > .disabled {
+    color: gray !important;
+}
 
-.importance > .fa-bolt { color: rgba(255, 0, 0, 0.66); }
+.importance > .fa-bolt {
+    color: rgba(255, 0, 0, 0.66);
+}
 
 .date-wrapper {
     display: flex;
@@ -52,14 +89,18 @@
     margin: 20px 0;
 }
 
-.date-wrapper.done { text-decoration: line-through; }
+    .date-wrapper.done {
+        text-decoration: line-through;
+    }
 
 .date {
     font-size: 25px;
     font-weight: bold;
 }
 
-.date-text { font-size: 15px; }
+.date-text {
+    font-size: 15px;
+}
 
 .note-title {
     font-size: 20px;
@@ -88,39 +129,48 @@
     margin: 0px 0px 15px 0px;
 }
 
-.form label > span {
-    width: 130px;
-    float: left;
-    padding-top: 8px;
-    padding-right: 5px;
-}
+    .form label > span {
+        width: 130px;
+        float: left;
+        padding-top: 8px;
+        padding-right: 5px;
+    }
 
-.form span.required { color: red; }
+.form span.required {
+    color: red;
+}
 
 .form input.input-field,
 .form .textarea-field,
 .form .select-field,
 .form .date-field {
     width: 300px;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
     border: 1px solid #C2C2C2;
-    box-shadow: 1px 1px 4px #EBEBEB;
-    -moz-box-shadow: 1px 1px 4px #EBEBEB;
-    -webkit-box-shadow: 1px 1px 4px #EBEBEB;
-    border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
+    border-radius: 3px;
     padding: 7px;
     outline: none;
 }
 
-.action-bar .form .select-field { width: 110px; }
+.action-bar .form .select-field,
+header .form .select-field {
+    width: 130px;
+    margin: 10px 30px;
+}
 
-.form .input-field:focus, .form .textarea-field:focus { border: 1px solid #cc0000; }
+.action-bar .form .select-field {
+    width: 110px;
+    margin-left: 10px;
+}
 
-.form .textarea-field { height: 100px; }
+.form .input-field:focus, .form .textarea-field:focus {
+    border: 1px solid #cc0000;
+}
+
+.form .textarea-field {
+    height: 100px;
+}
 
 button {
     background-color: rgb(14, 134, 19);
@@ -132,15 +182,23 @@ button {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    box-shadow: 1px 1px 4px #DADADA;
-    -moz-box-shadow: 1px 1px 4px #DADADA;
-    -webkit-box-shadow: 1px 1px 4px #DADADA;
     outline: none;
 }
 
-button.undone { background-color: rgb(243, 141, 3); }
+.default {
+    background-color: rgba(15, 28, 130, 0.71);
+}
 
-.btn:hover {
+    .default:hover {
+        background: #1112ca;
+        text-decoration: none;
+    }
+
+button.undone {
+    background-color: rgb(243, 141, 3);
+}
+
+button:hover {
     background: #509650;
     text-decoration: none;
 }

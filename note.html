@@ -8,24 +8,43 @@
     <link href="app.css" rel="stylesheet">
 </head>
 <body>
-
+<header>
+    <div class="header-title">Note Pro</div>
+    <form class="form" action="/" method="post">
+        <select class="select-field">
+            <option value="simpleTheme">Simple Theme</option>
+            <option value="fancyTheme">Fancy Theme</option>
+        </select>
+    </form>
+</header>
 <div class="container">
+    <div class="main-title">
+        <h1>My Notes</h1>   
+    </div>
     <div class="action-bar">
         <div>
-            <a href="noteDetail.html"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>           
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <a href="">Add note</a>
         </div>
         <div>
             <form class="form" action="/" method="post">
-                <input class="checkbox-field" type="checkbox" /> Show finished
+                <input type="checkbox">Incl. completed
                 <select class="select-field">
-                    <option value="volvo">Finish Date</option>
-                    <option value="saab">Create Date</option>
-                    <option value="mercedes">Importance</option>
-                </select> 
+                    <option value="finishDate">Finish Date</option>
+                    <option value="createDate">Create Date</option>
+                    <option value="importance">Importance</option>
+                </select>
             </form>
         </div>
-    </div>
+    </div>   
     <div class="note-container">
+        <div class="column note-column">
+            <div class="note-menu">
+                <a href="">Edit</a>
+            </div>
+            <div class="note-title">CAS Fee CSS/HTML machen</div>
+            <div class="note-text">of this listing item goes here.</div>
+        </div>
         <div class="column info-column">
             <div class="importance">
                 <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
@@ -40,12 +59,28 @@
             </div>
             <button class="btn">Complete</button>
         </div>
+    </div>
+    <div class="note-container">
         <div class="column note-column">
             <div class="note-menu">
                 <a href="">Edit</a>
             </div>
             <div class="note-title">CAS Fee CSS/HTML machen</div>
             <div class="note-text">of this listing item goes here.</div>
+        </div>
+        <div class="column info-column">
+            <div class="importance">
+                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
+                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
+                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
+                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
+                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
+            </div>
+            <div class="date-wrapper">
+                <div class="date-text">Due on</div>
+                <div class="date">24.06.17</div>
+            </div>
+            <button class="btn">Complete</button>
         </div>
     </div>
     <div class="note-container">

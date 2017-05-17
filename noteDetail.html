@@ -1,20 +1,37 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>Add/Edit Note</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
     <link href="font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="app.css" rel="stylesheet">
 </head>
 <body>
+<header>
+    <div class="header-title">Note Pro</div>
+    <form class="form" action="/" method="post">
+        <select class="select-field">
+            <option value="simpleTheme">Simple Theme</option>
+            <option value="fancyTheme">Fancy Theme</option>
+        </select>
+    </form>
+</header>
 <div class="container">
+    <div class="main-title">
+        <h1>Add/Edit Note</h1>
+    </div>
     <div class="form">
         <form action="" method="post">
-            <label for="field1"><span>Titel <span class="required">*</span></span><input type="text" class="input-field" name="field1" value="" /></label>
-            
-            <label for="field5"><span>Beschreibung <span class="required">*</span></span><textarea name="field5" class="textarea-field"></textarea></label>
-            <label for="field5"><span>Importance <span class="required">*</span></span>
+            <label for="field1">
+                <span>Titel <span class="required">*</span></span><input type="text" class="input-field" name="field1" value=""/>
+            </label>
+
+            <label for="field5">
+                <span>Beschreibung <span class="required">*</span></span><textarea name="field5" class="textarea-field"></textarea>
+            </label>
+            <label for="field5">
+                <span>Importance <span class="required">*</span></span>
                 <div class="importance">
                     <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
                     <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
@@ -23,13 +40,21 @@
                     <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
                 </div>
             </label>
-            <label for="field5"><span>Erledigt bis <span class="required">*</span></span>
+            <label for="field5">
+                <span>Erledigt bis <span class="required">*</span></span>
                 <div class="importance">
                     <input class="date-field" type="date" name="duedate">
                 </div>
             </label>
-            <button>Submit</button>
-            <a href="note.html" type="button">Cancel</a>
+            
+            <label>
+                <span></span>
+                <div>
+                    <button class="default">Submit</button>
+                    <a href="note.html" type="button">Cancel</a>
+                </div>
+            </label>
+
         </form>
     </div>
 </div>
