@@ -2,10 +2,11 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>Add/Edit Note</title>
+    <title>Create Note</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
     <link href="font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="app.css" rel="stylesheet">
+    <script language="javascript" type="text/javascript" src="app.js"></script>
 </head>
 <body>
 <header>
@@ -19,28 +20,41 @@
 </header>
 <div class="container">
     <div class="main-title">
-        <h1>Add/Edit Note</h1>
+        <h1>Create Note</h1>
     </div>
     <div class="form">
-        <form action="" method="post">
-            <label for="field1">
-                <span>Titel <span class="required">*</span></span><input type="text" class="input-field" name="field1" value=""/>
+        <form name="note-form">
+            <label>
+                <span>Title <span class="required">*</span></span><input type="text" class="input-field" name="title" value=""/>
             </label>
 
-            <label for="field5">
-                <span>Beschreibung <span class="required">*</span></span><textarea name="field5" class="textarea-field"></textarea>
+            <label>
+                <span>Description <span class="required">*</span></span><textarea name="description" class="textarea-field"></textarea>
             </label>
-            <label for="field5">
+            <label>
                 <span>Importance <span class="required">*</span></span>
-                <div class="importance">
-                    <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                    <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                    <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                    <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                    <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                </div>
+                <select class="select-field" id="importance">
+                    <option value="0">
+                        0 - Not important at all
+                    </option>
+                    <option value="1">
+                        1 - Not important
+                    </option>
+                    <option value="2">
+                        2 - Somewhat important
+                    </option>
+                    <option value="3">
+                        3 - Medium important
+                    </option>
+                    <option value="4">
+                        4 - Important
+                    </option>
+                    <option value="5">
+                        5 - Most important
+                    </option>
+                </select>
             </label>
-            <label for="field5">
+            <label>
                 <span>Erledigt bis <span class="required">*</span></span>
                 <div class="importance">
                     <input class="date-field" type="date" name="duedate">
@@ -50,11 +64,10 @@
             <label>
                 <span></span>
                 <div>
-                    <button class="default">Submit</button>
-                    <a href="note.html" type="button">Cancel</a>
+                    <a class="button" href="javascript: saveNote()">Create Note</a>
+                    <a class="button" href="note.html">Cancel</a>
                 </div>
             </label>
-
         </form>
     </div>
 </div>

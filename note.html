@@ -1,184 +1,82 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <title>Note Pro</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
     <link href="font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="app.css" rel="stylesheet">
+    <script language="javascript" type="text/javascript" src="handlebars-v4.0.10.js"></script>
+    <script language="javascript" type="text/javascript" src="app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            listNotes();
+        });
+    </script>
+    <script id="note-template" type="text/x-handlebars-template">
+        <div class="action-bar">
+            <div>
+                <a class="button" href="noteDetail.html"><i class="fa fa-plus" aria-hidden="true"></i> Add Note</a>
+            </div>
+            <div>
+                <form class="form" action="/" method="post">
+                    <input type="checkbox">Incl. completed
+                    <select class="select-field">
+                        <option value="finishDate">Finish Date</option>
+                        <option value="createDate">Create Date</option>
+                        <option value="importance">Importance</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+        {{#each notes}}
+        <div id="{{id}}" class="note-container">
+            <div class="column info-column">
+                <div class="importance">
+                    <i class="fa fa-bolt fa-2x {{#ifLowerEq importance 1}}disabled{{/ifLowerEq}}" aria-hidden="true"></i>
+                    <i class="fa fa-bolt fa-2x {{#ifLowerEq importance 2}}disabled{{/ifLowerEq}}" aria-hidden="true"></i>
+                    <i class="fa fa-bolt fa-2x {{#ifLowerEq importance 3}}disabled{{/ifLowerEq}}" aria-hidden="true"></i>
+                    <i class="fa fa-bolt fa-2x {{#ifLowerEq importance 4}}disabled{{/ifLowerEq}}" aria-hidden="true"></i>
+                    <i class="fa fa-bolt fa-2x {{#ifLowerEq importance 5}}disabled{{/ifLowerEq}}" aria-hidden="true"></i>
+                </div>
+                <div class="date-wrapper {{#if dateCompleted}}done{{/if}}">
+                    <div class="date-text">Due on</div>
+                    <div class="date">{{duedate}}</div>
+                </div>
+                <div>
+                    <a class="button {{#if dateCompleted}}undone{{else}}done{{/if}}" href="{{#if dateCompleted}}javascript: undone('{{id}}'){{else}}javascript: complete('{{id}}'){{/if}}">{{#if dateCompleted}}Undone{{else}}Complete{{/if}}</a>
+                </div>
+                {{#if dateCompleted}}<div class="done-date">done on {{dateCompleted}}</div>{{/if}}
+            </div>
+            <div class="column note-column">
+                <div class="note-menu">
+                    <a href="">Edit</a>
+                </div>
+                <div class="note-title">{{title}}</div>
+                <div class="note-text">{{description}}</div>
+            </div>
+        </div>
+        {{/each}}
+    
+    </script>
 </head>
 <body>
-<header>
-    <div class="header-title">Note Pro</div>
-    <form class="form" action="/" method="post">
-        <select class="select-field">
-            <option value="simpleTheme">Simple Theme</option>
-            <option value="fancyTheme">Fancy Theme</option>
-        </select>
-    </form>
-</header>
-<div class="container">
-    <div class="main-title">
-        <h1>My Notes</h1>   
-    </div>
-    <div class="action-bar">
-        <div>
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            <a href="">Add note</a>
+    <header>
+        <div class="header-title">Note Pro</div>
+        <form class="form" action="/" method="post">
+            <select class="select-field">
+                <option value="simpleTheme">Simple Theme</option>
+                <option value="fancyTheme">Fancy Theme</option>
+            </select>
+        </form>
+    </header>
+    <div class="container">
+        <div class="main-title">
+            <h1>My Notes</h1>
         </div>
-        <div>
-            <form class="form" action="/" method="post">
-                <input type="checkbox">Incl. completed
-                <select class="select-field">
-                    <option value="finishDate">Finish Date</option>
-                    <option value="createDate">Create Date</option>
-                    <option value="importance">Importance</option>
-                </select>
-            </form>
-        </div>
-    </div>   
-    <div class="note-container">
-        <div class="column note-column">
-            <div class="note-menu">
-                <a href="">Edit</a>
-            </div>
-            <div class="note-title">CAS Fee CSS/HTML machen</div>
-            <div class="note-text">of this listing item goes here.</div>
-        </div>
-        <div class="column info-column">
-            <div class="importance">
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-            </div>
-            <div class="date-wrapper">
-                <div class="date-text">Due on</div>
-                <div class="date">24.06.17</div>
-            </div>
-            <button class="btn">Complete</button>
+        <div id="note-panel" class="note-panel">
+            
         </div>
     </div>
-    <div class="note-container">
-        <div class="column note-column">
-            <div class="note-menu">
-                <a href="">Edit</a>
-            </div>
-            <div class="note-title">CAS Fee CSS/HTML machen</div>
-            <div class="note-text">of this listing item goes here.</div>
-        </div>
-        <div class="column info-column">
-            <div class="importance">
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-            </div>
-            <div class="date-wrapper">
-                <div class="date-text">Due on</div>
-                <div class="date">24.06.17</div>
-            </div>
-            <button class="btn">Complete</button>
-        </div>
-    </div>
-    <div class="note-container">
-        <div class="column info-column">
-            <div class="importance">
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x disabled" aria-hidden="true"></i>
-            </div>
-            <div class="date-wrapper done">
-                <div class="date-text">Due on</div>
-                <div class="date">24.06.17</div>
-            </div>
-            <button class="undone">Undone</button>
-            <div class="done-date">done on 23.01.17</div>
-        </div>
-        <div class="column note-column">
-            <div class="note-menu">
-                <a href="">Edit</a>
-            </div>
-            <div class="note-title">CAS Fee CSS/HTML machen</div>
-            <div class="note-text">Velit mollis odio sollicitudin lacinia aliquam posuere, sapien elementum lobortis tincidunt, turpis dui ornare nisl, sollicitudin interdum turpis nunc eget sem nulla eu ultricies orci praesent id augue nec lorem pretium congue sit amet ac nunc fusce iaculis lorem eu diam hendrerit at mattis purus dignissim vivamus mauris tellus, fringilla vel dapibus a, blandit quis erat vivamus elementum aliquam luctus etiam fringilla pretium sem vitae sodales mauris id nulla est praesent laoreet, metus vel auctor aliquam, eros purus vulputate leo, eget consequat neque quam id tellus duis ultricies tempor tortor, vitae dignissim ligula mattis nec in hac habitasse platea dictumst. Velit mollis odio sollicitudin lacinia aliquam posuere, sapien elementum lobortis tincidunt, turpis dui ornare nisl, sollicitudin interdum turpis nunc eget sem nulla eu ultricies orci praesent id augue nec lorem pretium congue sit amet ac nunc fusce iaculis lorem eu diam hendrerit at mattis purus dignissim vivamus mauris tellus, fringilla vel dapibus a, blandit quis erat vivamus elementum aliquam luctus etiam fringilla pretium sem vitae sodales mauris id nulla est praesent laoreet, metus vel auctor aliquam, eros purus vulputate leo, eget consequat neque quam id tellus duis ultricies tempor tortor, vitae dignissim ligula mattis nec in hac habitasse platea dictumst.</div>
-        </div>
-    </div>
-    <div class="note-container">
-        <div class="column info-column">
-            <div class="importance">
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x disabled" aria-hidden="true"></i>
-            </div>
-            <div class="date-wrapper">
-                <div class="date-text">Due on</div>
-                <div class="date">24.06.17</div>
-            </div>
-            <button class="undone">Incomplete</button>
-            <div class="done-date">done on 23.01.17</div>
-        </div>
-        <div class="column note-column">
-            <div class="note-menu">
-                <a href="">Edit</a>
-            </div>
-            <div class="note-title">CAS Fee CSS/HTML machen</div>
-            <div class="note-text">Velit mollis odio sollicitudin lacinia aliquam posuere, sapien elementum lobortis tincidunt, turpis dui ornare nisl, sollicitudin interdum turpis nunc eget sem nulla eu ultricies orci praesent id augue nec lorem pretium congue sit amet ac nunc fusce iaculis lorem eu diam hendrerit at mattis purus dignissim vivamus mauris tellus, fringilla vel dapibus a, blandit quis erat vivamus elementum aliquam luctus etiam fringilla pretium sem vitae sodales mauris id nulla est praesent laoreet, metus vel auctor aliquam, eros purus vulputate leo, eget consequat neque quam id tellus duis ultricies tempor tortor, vitae dignissim ligula mattis nec in hac habitasse platea dictumst. Velit mollis odio sollicitudin lacinia aliquam posuere, sapien elementum lobortis tincidunt, turpis dui ornare nisl, sollicitudin interdum turpis nunc eget sem nulla eu ultricies orci praesent id augue nec lorem pretium congue sit amet ac nunc fusce iaculis lorem eu diam hendrerit at mattis purus dignissim vivamus mauris tellus, fringilla vel dapibus a, blandit quis erat vivamus elementum aliquam luctus etiam fringilla pretium sem vitae sodales mauris id nulla est praesent laoreet, metus vel auctor aliquam, eros purus vulputate leo, eget consequat neque quam id tellus duis ultricies tempor tortor, vitae dignissim ligula mattis nec in hac habitasse platea dictumst.</div>
-        </div>
-    </div>
-    <div class="note-container">
-        <div class="column info-column">
-            <div class="importance">
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x disabled" aria-hidden="true"></i>
-            </div>
-            <div class="date-wrapper">
-                <div class="date-text">Due on</div>
-                <div class="date">24.06.17</div>
-            </div>
-            <button class="undone">Done</button>
-        </div>
-        <div class="column note-column">
-            <div class="note-menu">
-                <a href="">Edit</a>
-            </div>
-            <div class="note-title">CAS Fee CSS/HTML machen</div>
-            <div class="note-text">Velit mollis odio sollicitudin lacinia aliquam posuere, sapien elementum lobortis tincidunt, turpis dui ornare nisl, sollicitudin interdum turpis nunc eget sem nulla eu ultricies orci praesent id augue nec lorem pretium congue sit amet ac nunc fusce iaculis lorem eu diam hendrerit at mattis purus dignissim vivamus mauris tellus, fringilla vel dapibus a, blandit quis erat vivamus elementum aliquam luctus etiam fringilla pretium sem vitae sodales mauris id nulla est praesent laoreet, metus vel auctor aliquam, eros purus vulputate leo, eget consequat neque quam id tellus duis ultricies tempor tortor, vitae dignissim ligula mattis nec in hac habitasse platea dictumst. Velit mollis odio sollicitudin lacinia aliquam posuere, sapien elementum lobortis tincidunt, turpis dui ornare nisl, sollicitudin interdum turpis nunc eget sem nulla eu ultricies orci praesent id augue nec lorem pretium congue sit amet ac nunc fusce iaculis lorem eu diam hendrerit at mattis purus dignissim vivamus mauris tellus, fringilla vel dapibus a, blandit quis erat vivamus elementum aliquam luctus etiam fringilla pretium sem vitae sodales mauris id nulla est praesent laoreet, metus vel auctor aliquam, eros purus vulputate leo, eget consequat neque quam id tellus duis ultricies tempor tortor, vitae dignissim ligula mattis nec in hac habitasse platea dictumst.</div>
-        </div>
-    </div>
-    <div class="note-container">
-        <div class="column info-column">
-            <div class="importance">
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
-                <i class="fa fa-bolt fa-2x disabled" aria-hidden="true"></i>
-            </div>
-            <div class="date-wrapper">
-                <div class="date-text">Due on</div>
-                <div class="date">24.06.17</div>
-            </div>
-            <button class="btn">Done</button>
-        </div>
-        <div class="column note-column">
-            <div class="note-menu">
-                <a href="">Edit</a>
-            </div>
-            <div class="note-title">CAS Fee CSS/HTML machen</div>
-            <div class="note-text">Velit mollis odio sollicitudin lacinia aliquam posuere, sapien elementum lobortis tincidunt, turpis dui ornare nisl, sollicitudin interdum turpis nunc eget sem nulla eu ultricies orci praesent id augue nec lorem pretium congue sit amet ac nunc fusce iaculis lorem eu diam hendrerit at mattis purus dignissim vivamus mauris tellus, fringilla vel dapibus a, blandit quis erat vivamus elementum aliquam luctus etiam fringilla pretium sem vitae sodales mauris id nulla est praesent laoreet, metus vel auctor aliquam, eros purus vulputate leo, eget consequat neque quam id tellus duis ultricies tempor tortor, vitae dignissim ligula mattis nec in hac habitasse platea dictumst. Velit mollis odio sollicitudin lacinia aliquam posuere, sapien elementum lobortis tincidunt, turpis dui ornare nisl, sollicitudin interdum turpis nunc eget sem nulla eu ultricies orci praesent id augue nec lorem pretium congue sit amet ac nunc fusce iaculis lorem eu diam hendrerit at mattis purus dignissim vivamus mauris tellus, fringilla vel dapibus a, blandit quis erat vivamus elementum aliquam luctus etiam fringilla pretium sem vitae sodales mauris id nulla est praesent laoreet, metus vel auctor aliquam, eros purus vulputate leo, eget consequat neque quam id tellus duis ultricies tempor tortor, vitae dignissim ligula mattis nec in hac habitasse platea dictumst.</div>
-        </div>
-    </div>
-
-</div>
-
 </body>
 </html>
