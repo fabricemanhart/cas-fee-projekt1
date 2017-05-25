@@ -122,14 +122,14 @@ function complete(id) {
     var note = getItemFromLocalStorageByKey(id);
     note.dateCompleted = Date.now();
     createOrUpdateNoteInLocalStorage(id, note);
-    loadNotes(getAllItemFromLocalStorageIncludingId());
+    sortAndFilter();
 }
 
 function undone(id) {
     var note = getItemFromLocalStorageByKey(id);
     delete note.dateCompleted;
     createOrUpdateNoteInLocalStorage(id, note);
-    loadNotes(getAllItemFromLocalStorageIncludingId());
+    sortAndFilter();
 }
 
 function createOrUpdateNoteInLocalStorage(key, note) {
