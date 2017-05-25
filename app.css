@@ -26,9 +26,15 @@ header {
 
 .header-title {
     color: white;
+    text-decoration: none;
     align-self: center;
     font-size: 20px;
     margin-left: 30px;
+}
+
+.header-title:hover {
+    color: white;
+    text-decoration: none;
 }
 
 .main-title {

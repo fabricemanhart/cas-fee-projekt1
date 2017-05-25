@@ -16,10 +16,10 @@
     <script id="note-template" type="text/x-handlebars-template">
         <div class="action-bar">
             <div>
-                <a class="button" href="noteDetail.html"><i class="fa fa-plus" aria-hidden="true"></i> Add Note</a>
+                <a class="button" href="detail.html"><i class="fa fa-plus" aria-hidden="true"></i> Add Note</a>
             </div>
-            <div>Notes Total: {{notesTotal}}</div>
-            <div>Notes Completed: {{notesCompleted}}</div>
+            <div>Total Notes: {{notesTotal}}</div>
+            <div>Completed Notes: {{notesCompleted}}</div>
             <div>
                 <input id="includingCompleted" type="checkbox" onchange="sortAndFilter();" {{#if includingCompleted}}checked{{/if}}>Incl. completed
                 <select id="sorting" class="select-field" onchange="sortAndFilter();">
@@ -42,7 +42,7 @@
                 </div>
                 <div class="date-wrapper {{#if dateCompleted}}done{{/if}}">
                     <div class="date-text">Due on</div>
-                    <div class="date">{{duedate}}</div>
+                    <div class="date">{{dueDate}}</div>
                 </div>
                 <div>
                     <a class="button {{#if dateCompleted}}undone{{else}}done{{/if}}" href="{{#if dateCompleted}}javascript: undone('{{id}}'){{else}}javascript: complete('{{id}}'){{/if}}">{{#if dateCompleted}}Undone{{else}}Complete{{/if}}</a>
@@ -51,7 +51,7 @@
             </div>
             <div class="column note-column">
                 <div class="note-menu">
-                    <a href="">Edit</a>
+                    <a href="detail.html?id={{id}}">Edit</a>
                 </div>
                 <div class="note-title">{{title}}</div>
                 <div class="note-text">{{description}}</div>
@@ -63,7 +63,7 @@
 </head>
 <body>
     <header>
-        <div class="header-title">Note Pro</div>
+        <a class="header-title" href="note.html">Note Pro</a>
         <form class="form" action="/" method="post">
             <select class="select-field">
                 <option value="simpleTheme">Simple Theme</option>
@@ -76,7 +76,6 @@
             <h1>My Notes</h1>
         </div>
         <div id="note-panel" class="note-panel">
-
         </div>
     </div>
 </body>

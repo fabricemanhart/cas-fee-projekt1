@@ -1,16 +1,51 @@
 ﻿function saveNote() {
-    var form = document.forms["note-form"];
+
+    var id = document.getElementById("id").value;
     var selector = document.getElementById("importance");
 
     var note = {
-        title: form.title.value,
-        description: form.description.value,
+        title: document.getElementById("title").value,
+        description: document.getElementById("description").value,
         importance: selector[selector.selectedIndex].value,
-        duedate: formatDate(form.duedate.value),
-        creationDate: formatDate(Date.now())
+        dueDate: document.getElementById("duedate").value,
+        creationDate: Date.now() // or update date
     }
 
-    createOrUpdateNoteInLocalStorage(generateGuid(), note);
+    if (!id) {
+
+        id = generateGuid();
+    }
+
+    createOrUpdateNoteInLocalStorage(id, note);
+}
+
+function populateNote(id) {
+
+    if (!id) {
+        return;
+    }
+
+    var note = getItemFromLocalStorageByKey(id);
+    document.getElementById("id").value = id;
+    document.getElementById("title").value = note.title;
+    document.getElementById("description").value = note.description;
+    document.getElementById("importance").value = note.importance;
+    document.getElementById("duedate").value = note.dueDate;
+}
+
+function setTitleAndButtonText(id) {
+
+    var text;
+    if (id) {
+        text = "Update Note";
+
+    } else {
+        text = "Create Note";
+
+    }
+
+    document.getElementById("main-title").innerText = text;
+    document.getElementById("save-button").innerText = text;
 }
 
 function sortAndFilter() {
@@ -33,7 +68,7 @@ function sortAndFilter() {
             break;
 
         default:
-            sortedNotes = getAllItemFromLocalStorage();
+            sortedNotes = getAllItemFromLocalStorageIncludingId();
     }
 
     if (includingCompleted) {
@@ -42,24 +77,33 @@ function sortAndFilter() {
 }
 
 function sortByDate(property) {
-    return getAllItemFromLocalStorage()
+    return getAllItemFromLocalStorageIncludingId()
         .sort(function (a, b) {
-            var aParsed = Date.parse(a[property]);
-            var bParsed = Date.parse(b[property]);
-            if (aParsed < bParsed) return -1;
-            if (aParsed > bParsed) return 1;
+            //var aParsed = Date.parse(a[property]);
+            //var bParsed = Date.parse(b[property]);
+            //if (aParsed < bParsed) return -1;
+            //if (aParsed > bParsed) return 1;
+            //return 0;
+            if (a[property] < b[property]) return -1;
+            if (a[property] > b[property]) return 1;
             return 0;
         });
 }
 
 function sortByValue(property) {
-    return getAllItemFromLocalStorage()
+    return getAllItemFromLocalStorageIncludingId()
         .sort(function (a, b) {
             return a[property] - b[property];
         });
 }
 
 function loadNotes(notes, includingCompleted, sorting) {
+
+    for (var i = 0, len = notes.length; i < len; i++) {
+        notes[i].creationDate = formatDate(notes[i].creationDate);
+        notes[i].dueDate = formatDate(notes[i].dueDate);
+        notes[i].dateCompleted = formatDate(notes[i].dateCompleted);
+    }
 
     var context = {
         notes: notes,
@@ -76,16 +120,16 @@ function loadNotes(notes, includingCompleted, sorting) {
 
 function complete(id) {
     var note = getItemFromLocalStorageByKey(id);
-    note.dateCompleted = formatDate(Date.now());
+    note.dateCompleted = Date.now();
     createOrUpdateNoteInLocalStorage(id, note);
-    loadNotes(getAllItemFromLocalStorage());
+    loadNotes(getAllItemFromLocalStorageIncludingId());
 }
 
 function undone(id) {
     var note = getItemFromLocalStorageByKey(id);
     delete note.dateCompleted;
     createOrUpdateNoteInLocalStorage(id, note);
-    loadNotes(getAllItemFromLocalStorage());
+    loadNotes(getAllItemFromLocalStorageIncludingId());
 }
 
 function createOrUpdateNoteInLocalStorage(key, note) {
@@ -96,21 +140,23 @@ function createOrUpdateNoteInLocalStorage(key, note) {
 
 function getItemFromLocalStorageByKey(key) {
     if (LocalStorageAvailable()) {
-        return JSON.parse(localStorage.getItem(key));
+        var note = JSON.parse(localStorage.getItem(key));
+        return note;
     }
     return null;
 }
 
-function getAllItemFromLocalStorage() {
+function getAllItemFromLocalStorageIncludingId() {
     if (LocalStorageAvailable()) {
         var allItems = [];
+
         var keys = Object.keys(localStorage);
 
         for (var i = 0, len = keys.length; i < len; i++) {
             var key = keys[i];
-            var item = JSON.parse(localStorage.getItem(key));
-            item.id = key;
-            allItems.push(item);
+            var note = getItemFromLocalStorageByKey(key);
+            note.id = key;
+            allItems.push(note);
         }
         return allItems;
     }
@@ -143,10 +189,14 @@ function listNotes() {
         return options.inverse(this);
     });
 
-    loadNotes(getAllItemFromLocalStorage(), true);
+    loadNotes(getAllItemFromLocalStorageIncludingId(), true);
 }
 
 function formatDate(dateString) {
+    if (!dateString) {
+        return null;
+    }
+
     var date = new Date(dateString);
     var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
     return date.toLocaleDateString('de-DE', options);
@@ -157,4 +207,16 @@ function generateGuid() {
         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });
+}
+
+function getUrlParameter(parameter) {
+    var params = window.location.search.substr(1).split('&');
+
+    for (var i = 0; i < params.length; i++) {
+        var p = params[i].split('=');
+        if (p[0] == parameter) {
+            return decodeURIComponent(p[1]);
+        }
+    }
+    return false;
 }
