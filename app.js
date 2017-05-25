@@ -6,15 +6,67 @@
         title: form.title.value,
         description: form.description.value,
         importance: selector[selector.selectedIndex].value,
-        duedate: formatDate(form.duedate.value)
+        duedate: formatDate(form.duedate.value),
+        creationDate: formatDate(Date.now())
     }
 
     createOrUpdateNoteInLocalStorage(generateGuid(), note);
 }
 
-function loadNotes() {
+function sortAndFilter() {
+    var includingCompleted = document.getElementById("includingCompleted").checked;
+    var sortCriteria = document.getElementById("sorting").value;
+    var sortedNotes;
+
+    switch (+sortCriteria) {
+        case 1:
+            sortedNotes = sortByDate("dueDate");
+            break;
+        case 2:
+            sortedNotes = sortByDate("completionDate");
+            break;
+        case 3:
+            sortedNotes = sortByDate("creationDate");
+            break;
+        case 4:
+            sortedNotes = sortByValue("importance");
+            break;
+
+        default:
+            sortedNotes = getAllItemFromLocalStorage();
+    }
+
+    if (includingCompleted) {
+        loadNotes(sortedNotes, includingCompleted, sortCriteria);
+    } else loadNotes(sortedNotes.filter(x => !x.dateCompleted), includingCompleted, sortCriteria);
+}
+
+function sortByDate(property) {
+    return getAllItemFromLocalStorage()
+        .sort(function (a, b) {
+            var aParsed = Date.parse(a[property]);
+            var bParsed = Date.parse(b[property]);
+            if (aParsed < bParsed) return -1;
+            if (aParsed > bParsed) return 1;
+            return 0;
+        });
+}
+
+function sortByValue(property) {
+    return getAllItemFromLocalStorage()
+        .sort(function (a, b) {
+            return a[property] - b[property];
+        });
+}
+
+function loadNotes(notes, includingCompleted, sorting) {
+
     var context = {
-        notes: getAllItemFromLocalStorage()
+        notes: notes,
+        notesTotal: notes.length,
+        notesCompleted: notes.filter(x => x.dateCompleted).length,
+        sorting: sorting,
+        includingCompleted: includingCompleted
     };
     var source = document.getElementById("note-template").innerHTML;
     var template = Handlebars.compile(source);
@@ -26,14 +78,14 @@ function complete(id) {
     var note = getItemFromLocalStorageByKey(id);
     note.dateCompleted = formatDate(Date.now());
     createOrUpdateNoteInLocalStorage(id, note);
-    loadNotes();
+    loadNotes(getAllItemFromLocalStorage());
 }
 
 function undone(id) {
     var note = getItemFromLocalStorageByKey(id);
     delete note.dateCompleted;
     createOrUpdateNoteInLocalStorage(id, note);
-    loadNotes();
+    loadNotes(getAllItemFromLocalStorage());
 }
 
 function createOrUpdateNoteInLocalStorage(key, note) {
@@ -85,13 +137,13 @@ function listNotes() {
     });
 
     Handlebars.registerHelper('ifEq', function (v1, v2, options) {
-        if (v1 === v2) {
+        if (v1 == v2) {
             return options.fn(this);
         }
         return options.inverse(this);
     });
 
-    loadNotes();
+    loadNotes(getAllItemFromLocalStorage(), true);
 }
 
 function formatDate(dateString) {

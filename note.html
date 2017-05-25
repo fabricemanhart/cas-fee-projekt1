@@ -18,15 +18,16 @@
             <div>
                 <a class="button" href="noteDetail.html"><i class="fa fa-plus" aria-hidden="true"></i> Add Note</a>
             </div>
+            <div>Notes Total: {{notesTotal}}</div>
+            <div>Notes Completed: {{notesCompleted}}</div>
             <div>
-                <form class="form" action="/" method="post">
-                    <input type="checkbox">Incl. completed
-                    <select class="select-field">
-                        <option value="finishDate">Finish Date</option>
-                        <option value="createDate">Create Date</option>
-                        <option value="importance">Importance</option>
-                    </select>
-                </form>
+                <input id="includingCompleted" type="checkbox" onchange="sortAndFilter();" {{#if includingCompleted}}checked{{/if}}>Incl. completed
+                <select id="sorting" class="select-field" onchange="sortAndFilter();">
+                    <option value="1" {{#ifEq sorting 1}}selected="selected"{{/ifEq}}>Due Date</option>
+                    <option value="2" {{#ifEq sorting 2}}selected="selected"{{/ifEq}}>Finish Date</option>
+                    <option value="3" {{#ifEq sorting 3}}selected="selected"{{/ifEq}}>Creaton Date</option>
+                    <option value="4" {{#ifEq sorting 4}}selected="selected"{{/ifEq}}>Importance</option>
+                </select>
             </div>
         </div>
         {{#each notes}}
@@ -57,7 +58,7 @@
             </div>
         </div>
         {{/each}}
-    
+
     </script>
 </head>
 <body>
@@ -75,7 +76,7 @@
             <h1>My Notes</h1>
         </div>
         <div id="note-panel" class="note-panel">
-            
+
         </div>
     </div>
 </body>
