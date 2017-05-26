@@ -17,15 +17,16 @@
     </script>
 </head>
 <body>
-    <header>
-        <a class="header-title" href="note.html">Note Pro</a>
-        <form class="form" action="/" method="post">
-            <select class="select-field">
-                <option value="simpleTheme">Simple Theme</option>
-                <option value="fancyTheme">Fancy Theme</option>
-            </select>
-        </form>
-    </header>
+<header>
+    <a class="header-title" href="note.html">Note Pro</a>
+    <form class="form" action="/" method="post">
+        <select class="select-field">
+            <option value="simpleTheme">Simple Theme</option>
+            <option value="fancyTheme">Fancy Theme</option>
+        </select>
+    </form>
+</header>
+<div class="save-alert-area" id="save-alert-area"></div>
     <div class="container">
         <div class="main-title">
             <h1 id="main-title"></h1>
@@ -73,7 +74,7 @@
                     <span></span>
                     <div>
                         <a id="save-button" class="button" href="javascript: saveNote()">Create Note</a>
-                        <a class="button" href="note.html">Cancel</a>
+                        <a class="button cancel" href="note.html">Cancel</a>
                     </div>
                 </label>
             </form>

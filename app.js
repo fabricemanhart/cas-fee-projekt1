@@ -15,8 +15,20 @@
 
         id = generateGuid();
     }
-
     createOrUpdateNoteInLocalStorage(id, note);
+    showNotification(note.title);
+}
+
+function showNotification(title) {
+    var alertArea = document.getElementById("save-alert-area");
+    var alert = document.createElement("div");
+    var text = document.createTextNode(`Note "${title}" successfully saved!`);
+
+    alert.appendChild(text);
+    alert.classList.add("save-alert");
+    alert.classList.add("visible");
+    alertArea.appendChild(alert);
+    setTimeout(function () { alertArea.removeChild(alert); }, 3000);
 }
 
 function populateNote(id) {
