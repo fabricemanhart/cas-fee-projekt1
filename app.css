@@ -131,19 +131,19 @@ header {
     font-size: 10px;
 }
 
-.form label {
+form label {
     display: block;
     margin: 0px 0px 15px 0px;
 }
 
-.form label > span {
+form label > span {
     width: 130px;
     float: left;
     padding-top: 8px;
     padding-right: 5px;
 }
 
-.form span.required { color: red; }
+form span.required { color: red; }
 
 input.input-field,
 .textarea-field,
@@ -159,14 +159,21 @@ input.input-field,
 }
 
 .action-bar .select-field,
-header .form .select-field {
+header form .select-field {
     width: 130px;
     margin: 10px 30px;
 }
 
-.form .input-field:focus, .form .textarea-field:focus { border: 1px solid #cc0000; }
+form .input-field:focus, form .textarea-field:focus { border: 1px solid #cc0000; }
 
-.form .textarea-field { height: 100px; }
+form .textarea-field { height: 100px; }
+
+form .validation-message {
+    display: none;
+    color: red;
+    float: right;
+    margin-left: 15px;
+}
 
 .button {
     background-color: rgba(0, 0, 0, 0.69);
@@ -218,8 +225,8 @@ header .form .select-field {
     transition: visibility 0s, opacity 0.5s linear;
 }
 
-    .save-alert.visible {
-        visibility: visible;
-        opacity: 1;
-        transition: visibility 0s, opacity 0.5s linear;
-    }
+.save-alert.visible {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s, opacity 0.5s linear;
+}

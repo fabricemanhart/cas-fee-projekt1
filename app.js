@@ -15,8 +15,45 @@
 
         id = generateGuid();
     }
-    createOrUpdateNoteInLocalStorage(id, note);
-    showNotification(note.title);
+
+    if (validateFields(note)) {
+        createOrUpdateNoteInLocalStorage(id, note);
+        showNotification(note.title);
+    }
+}
+
+function validateFields(note) {
+
+    var isFormValid = true;
+
+    var messages = document.getElementsByClassName("validation-message");
+
+    for (var i = 0, len = messages.length; i < len; i++) {
+        messages[i].style.display = "none";
+    }
+
+    if (!note.title) {
+        document.getElementById("title-msg").style.display = "block";
+        isFormValid = false;
+    }
+
+    if (!note.description) {
+        document.getElementById("description-msg").style.display = "block";
+        isFormValid = false;
+
+    }
+
+    if (!note.dueDate) {
+        document.getElementById("duedate-msg").style.display = "block";
+        isFormValid = false;
+
+    }
+
+    if (isFormValid) {
+        return true;
+    }
+
+    return false;
 }
 
 function showNotification(title) {
