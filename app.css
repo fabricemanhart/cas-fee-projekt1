@@ -230,3 +230,7 @@ form .validation-message {
     opacity: 1;
     transition: visibility 0s, opacity 0.5s linear;
 }
+
+.validation-message {
+    width: 200px;
+}

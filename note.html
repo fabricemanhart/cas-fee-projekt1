@@ -35,7 +35,7 @@
     </script>
     <script id="note-template" type="text/x-handlebars-template">
         {{#each notes}}
-        <div id="{{id}}" class="note-container">
+        <article id="{{id}}" class="note-container">
             <div class="column info-column">
                 <div class="importance">
                     <i class="fa fa-bolt fa-2x {{#ifLowerEq importance 1}}disabled{{/ifLowerEq}}" aria-hidden="true"></i>
@@ -60,7 +60,7 @@
                 <div class="note-title">{{title}} {{creationDate}}</div>
                 <div class="note-text">{{description}}</div>
             </div>
-        </div>
+        </article>
         {{/each}}
     </script>
 </head>
@@ -78,8 +78,8 @@
         <div class="main-title">
             <h1>My Notes</h1>
         </div>
-        <div id="note-panel" class="note-panel">
-        </div>
+        <main id="note-panel" class="note-panel">
+        </main>
     </div>
 </body>
 </html>

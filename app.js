@@ -39,6 +39,11 @@ function validateFields(note) {
         isFormValid = false;
     }
 
+  if (note.title.length > 60) {
+    document.getElementById("title-length-msg").style.display = "block";
+    isFormValid = false;
+  }
+
     if (!note.description) {
         document.getElementById("description-msg").style.display = "block";
         isFormValid = false;
@@ -133,10 +138,6 @@ function sortAndFilter() {
 function sortByDate(property) {
     return getAllItemFromLocalStorageIncludingId()
         .sort(function (a, b) {
-            console.log("a:", a[property]);
-            console.log("b:", b[property]);
-            //if (isNaN(new Date(a[property]).getTime())) a[property] = 1;
-            //if (isNaN(new Date(b[property]).getTime())) b[property] = 1;
             if (new Date(a[property]) < new Date(b[property])) return -1;
             if (new Date(a[property]) > new Date(b[property])) return 1;
             return 0;
