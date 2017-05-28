@@ -7,8 +7,10 @@
         title: document.getElementById("title").value,
         description: document.getElementById("description").value,
         importance: selector[selector.selectedIndex].value,
+        completed: false,
         dueDate: document.getElementById("duedate").value,
-        creationDate: Date.now() // or update date
+        creationDate: Date.now(), // or update date
+        completionDate: null
     }
 
     if (!id) {
@@ -82,6 +84,7 @@ function populateNote(id) {
     document.getElementById("duedate").value = note.dueDate;
 }
 
+
 function setTitleAndButtonText(id) {
 
     var text;
@@ -120,21 +123,22 @@ function sortAndFilter() {
             sortedNotes = getAllItemFromLocalStorageIncludingId();
     }
 
+    loadActionBar(sortedNotes, includingCompleted, sortCriteria);
+
     if (includingCompleted) {
-        loadNotes(sortedNotes, includingCompleted, sortCriteria);
-    } else loadNotes(sortedNotes.filter(x => !x.dateCompleted), includingCompleted, sortCriteria);
+        loadNotes(sortedNotes);
+    } else loadNotes(sortedNotes.filter(x => !x.completed));
 }
 
 function sortByDate(property) {
     return getAllItemFromLocalStorageIncludingId()
         .sort(function (a, b) {
-            //var aParsed = Date.parse(a[property]);
-            //var bParsed = Date.parse(b[property]);
-            //if (aParsed < bParsed) return -1;
-            //if (aParsed > bParsed) return 1;
-            //return 0;
-            if (a[property] < b[property]) return -1;
-            if (a[property] > b[property]) return 1;
+            console.log("a:", a[property]);
+            console.log("b:", b[property]);
+            //if (isNaN(new Date(a[property]).getTime())) a[property] = 1;
+            //if (isNaN(new Date(b[property]).getTime())) b[property] = 1;
+            if (new Date(a[property]) < new Date(b[property])) return -1;
+            if (new Date(a[property]) > new Date(b[property])) return 1;
             return 0;
         });
 }
@@ -146,22 +150,35 @@ function sortByValue(property) {
         });
 }
 
-function loadNotes(notes, includingCompleted, sorting) {
+function loadNotes(notes) {
 
+    // Format Dates
     for (var i = 0, len = notes.length; i < len; i++) {
         notes[i].creationDate = formatDate(notes[i].creationDate);
         notes[i].dueDate = formatDate(notes[i].dueDate);
-        notes[i].dateCompleted = formatDate(notes[i].dateCompleted);
+        notes[i].completionDate = formatDate(notes[i].completionDate);
     }
 
     var context = {
-        notes: notes,
-        notesTotal: notes.length,
-        notesCompleted: notes.filter(x => x.dateCompleted).length,
+        notes: notes
+    };
+
+    var source = document.getElementById("note-template").innerHTML;
+    var template = Handlebars.compile(source);
+    var htmlString = template(context);
+    document.getElementById("note-panel").innerHTML += htmlString;
+}
+
+function loadActionBar(notes, includingCompleted, sorting) {
+
+    var context = {
+        notesTotal: notes ? notes.length : 0,
+        notesCompleted: notes ? notes.filter(x => x.completionDate).length : 0,
         sorting: sorting,
         includingCompleted: includingCompleted
     };
-    var source = document.getElementById("note-template").innerHTML;
+
+    var source = document.getElementById("actionbar-template").innerHTML;
     var template = Handlebars.compile(source);
     var htmlString = template(context);
     document.getElementById("note-panel").innerHTML = htmlString;
@@ -169,26 +186,28 @@ function loadNotes(notes, includingCompleted, sorting) {
 
 function complete(id) {
     var note = getItemFromLocalStorageByKey(id);
-    note.dateCompleted = Date.now();
+    note.completed = true;
+    note.completionDate = Date.now();
     createOrUpdateNoteInLocalStorage(id, note);
     sortAndFilter();
 }
 
 function undone(id) {
     var note = getItemFromLocalStorageByKey(id);
-    delete note.dateCompleted;
+    note.completionDate = null;
+    note.completed = false;
     createOrUpdateNoteInLocalStorage(id, note);
     sortAndFilter();
 }
 
 function createOrUpdateNoteInLocalStorage(key, note) {
-    if (LocalStorageAvailable()) {
+    if (localStorageAvailable()) {
         localStorage.setItem(key, JSON.stringify(note));
     }
 }
 
 function getItemFromLocalStorageByKey(key) {
-    if (LocalStorageAvailable()) {
+    if (localStorageAvailable()) {
         var note = JSON.parse(localStorage.getItem(key));
         return note;
     }
@@ -196,7 +215,7 @@ function getItemFromLocalStorageByKey(key) {
 }
 
 function getAllItemFromLocalStorageIncludingId() {
-    if (LocalStorageAvailable()) {
+    if (localStorageAvailable()) {
         var allItems = [];
 
         var keys = Object.keys(localStorage);
@@ -212,7 +231,7 @@ function getAllItemFromLocalStorageIncludingId() {
     return null;
 }
 
-function LocalStorageAvailable() {
+function localStorageAvailable() {
     if (typeof (Storage) !== "undefined") {
         return true;
     }
@@ -222,23 +241,21 @@ function LocalStorageAvailable() {
     }
 }
 
-function listNotes() {
+function registerHandlebarHelpers() {
 
-    Handlebars.registerHelper('ifLowerEq', function (v1, v2, options) {
+    Handlebars.registerHelper("ifLowerEq", function (v1, v2, options) {
         if (v1 < v2) {
             return options.fn(this);
         }
         return options.inverse(this);
     });
 
-    Handlebars.registerHelper('ifEq', function (v1, v2, options) {
+    Handlebars.registerHelper("ifEq", function (v1, v2, options) {
         if (v1 == v2) {
             return options.fn(this);
         }
         return options.inverse(this);
     });
-
-    loadNotes(getAllItemFromLocalStorageIncludingId(), true);
 }
 
 function formatDate(dateString) {
@@ -268,4 +285,41 @@ function getUrlParameter(parameter) {
         }
     }
     return false;
+}
+
+function generateRandomNotes(amount) {
+
+    for (var i = 0; i < amount; i++) {
+        var note = {
+            title: "Test Title",
+            description: "Test text Test text Test text Test text Test text",
+            importance: getRandomNumber(0, 5),
+            dueDate: getRandomDate(2017, 2018).toISOString().slice(0, 10),
+            creationDate: getRandomDate(2017, 2017),
+            completionDate: null
+        }
+
+        if (isCompleted()) {
+            note.completionDate = getRandomDate(2018, 2018);
+            note.completed = true;
+        }
+
+        createOrUpdateNoteInLocalStorage(generateGuid(), note);
+    }
+}
+
+function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function isCompleted() {
+    return !!getRandomNumber(0, 1);
+}
+
+function getRandomDate(minYear, maxYear) {
+    var year = getRandomNumber(minYear, maxYear);
+    var month = getRandomNumber(0, 11);
+    var day = getRandomNumber(1, 31);
+
+    return new Date(year, month, day);
 }

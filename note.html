@@ -10,10 +10,12 @@
     <script language="javascript" type="text/javascript" src="app.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            listNotes();
+            registerHandlebarHelpers();
+            loadActionBar();
+            sortAndFilter();
         });
     </script>
-    <script id="note-template" type="text/x-handlebars-template">
+    <script id="actionbar-template" type="text/x-handlebars-template">
         <div class="action-bar">
             <div>
                 <a class="button" href="detail.html"><i class="fa fa-plus" aria-hidden="true"></i> Add Note</a>
@@ -21,15 +23,17 @@
             <div>Total Notes: {{notesTotal}}</div>
             <div>Completed Notes: {{notesCompleted}}</div>
             <div>
-                <input id="includingCompleted" type="checkbox" onchange="sortAndFilter();" {{#if includingCompleted}}checked{{/if}}>Incl. completed
+                <input id="includingCompleted" type="checkbox" onchange="sortAndFilter();" {{#if includingCompleted}} checked{{/if}}>Incl. completed
                 <select id="sorting" class="select-field" onchange="sortAndFilter();">
-                    <option value="1" {{#ifEq sorting 1}}selected="selected"{{/ifEq}}>Due Date</option>
-                    <option value="2" {{#ifEq sorting 2}}selected="selected"{{/ifEq}}>Finish Date</option>
-                    <option value="3" {{#ifEq sorting 3}}selected="selected"{{/ifEq}}>Creaton Date</option>
-                    <option value="4" {{#ifEq sorting 4}}selected="selected"{{/ifEq}}>Importance</option>
+                    <option value="1" {{#ifEq sorting 1}} selected="selected" {{/ifEq}}>Due Date</option>
+                    <option value="2" {{#ifEq sorting 2}} selected="selected" {{/ifEq}}>Finish Date</option>
+                    <option value="3" {{#ifEq sorting 3}} selected="selected" {{/ifEq}}>Creaton Date</option>
+                    <option value="4" {{#ifEq sorting 4}} selected="selected" {{/ifEq}}>Importance</option>
                 </select>
             </div>
         </div>
+    </script>
+    <script id="note-template" type="text/x-handlebars-template">
         {{#each notes}}
         <div id="{{id}}" class="note-container">
             <div class="column info-column">
@@ -40,25 +44,24 @@
                     <i class="fa fa-bolt fa-2x {{#ifLowerEq importance 4}}disabled{{/ifLowerEq}}" aria-hidden="true"></i>
                     <i class="fa fa-bolt fa-2x {{#ifLowerEq importance 5}}disabled{{/ifLowerEq}}" aria-hidden="true"></i>
                 </div>
-                <div class="date-wrapper {{#if dateCompleted}}done{{/if}}">
+                <div class="date-wrapper {{#if completed}}done{{/if}}">
                     <div class="date-text">Due on</div>
                     <div class="date">{{dueDate}}</div>
                 </div>
                 <div>
-                    <a class="button {{#if dateCompleted}}undone{{else}}done{{/if}}" href="{{#if dateCompleted}}javascript: undone('{{id}}'){{else}}javascript: complete('{{id}}'){{/if}}">{{#if dateCompleted}}Undone{{else}}Complete{{/if}}</a>
+                    <a class="button {{#if completed}}undone{{else}}done{{/if}}" href="{{#if completed}}javascript: undone('{{id}}'){{else}}javascript: complete('{{id}}'){{/if}}">{{#if completed}}Undone{{else}}Complete{{/if}}</a>
                 </div>
-                {{#if dateCompleted}}<div class="done-date">done on {{dateCompleted}}</div>{{/if}}
+                {{#if completed}}<div class="done-date">done on {{completionDate}}</div>{{/if}}
             </div>
             <div class="column note-column">
                 <div class="note-menu">
                     <a href="detail.html?id={{id}}">Edit</a>
                 </div>
-                <div class="note-title">{{title}}</div>
+                <div class="note-title">{{title}} {{creationDate}}</div>
                 <div class="note-text">{{description}}</div>
             </div>
         </div>
         {{/each}}
-
     </script>
 </head>
 <body>
