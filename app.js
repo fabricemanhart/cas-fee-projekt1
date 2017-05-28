@@ -167,7 +167,7 @@ function loadNotes(notes) {
     var source = document.getElementById("note-template").innerHTML;
     var template = Handlebars.compile(source);
     var htmlString = template(context);
-    document.getElementById("note-panel").innerHTML += htmlString;
+    document.getElementById("note-list").innerHTML += htmlString;
 }
 
 function loadActionBar(notes, includingCompleted, sorting) {
@@ -182,7 +182,7 @@ function loadActionBar(notes, includingCompleted, sorting) {
     var source = document.getElementById("actionbar-template").innerHTML;
     var template = Handlebars.compile(source);
     var htmlString = template(context);
-    document.getElementById("note-panel").innerHTML = htmlString;
+    document.getElementById("action-bar").innerHTML = htmlString;
 }
 
 function complete(id) {

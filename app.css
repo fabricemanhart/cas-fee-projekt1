@@ -3,10 +3,6 @@
     color: rgb(25, 25, 25);
 }
 
-a { color: black; }
-
-a:hover { color: #cc0000; }
-
 header {
     background-color: rgba(0, 0, 0, 0.69);
     width: 100%;
@@ -17,6 +13,10 @@ header {
     display: flex;
     justify-content: space-between;
     z-index: 100;
+}
+
+ul {
+    padding: 0px;
 }
 
 .header-title {

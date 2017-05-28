@@ -16,26 +16,24 @@
         });
     </script>
     <script id="actionbar-template" type="text/x-handlebars-template">
-        <div class="action-bar">
-            <div>
-                <a class="button" href="detail.html"><i class="fa fa-plus" aria-hidden="true"></i> Add Note</a>
-            </div>
-            <div>Total Notes: {{notesTotal}}</div>
-            <div>Completed Notes: {{notesCompleted}}</div>
-            <div>
-                <input id="includingCompleted" type="checkbox" onchange="sortAndFilter();" {{#if includingCompleted}} checked{{/if}}>Incl. completed
-                <select id="sorting" class="select-field" onchange="sortAndFilter();">
-                    <option value="1" {{#ifEq sorting 1}} selected="selected" {{/ifEq}}>Due Date</option>
-                    <option value="2" {{#ifEq sorting 2}} selected="selected" {{/ifEq}}>Finish Date</option>
-                    <option value="3" {{#ifEq sorting 3}} selected="selected" {{/ifEq}}>Creaton Date</option>
-                    <option value="4" {{#ifEq sorting 4}} selected="selected" {{/ifEq}}>Importance</option>
-                </select>
-            </div>
+        <div>
+            <a class="button" href="detail.html"><i class="fa fa-plus" aria-hidden="true"></i> Add Note</a>
+        </div>
+        <div>Total Notes: {{notesTotal}}</div>
+        <div>Completed Notes: {{notesCompleted}}</div>
+        <div>
+            <input id="includingCompleted" type="checkbox" onchange="sortAndFilter();" {{#if includingCompleted}} checked{{/if}}>Incl. completed
+            <select id="sorting" class="select-field" onchange="sortAndFilter();">
+                <option value="1" {{#ifEq sorting 1}} selected="selected" {{/ifEq}}>Due Date</option>
+                <option value="2" {{#ifEq sorting 2}} selected="selected" {{/ifEq}}>Finish Date</option>
+                <option value="3" {{#ifEq sorting 3}} selected="selected" {{/ifEq}}>Creaton Date</option>
+                <option value="4" {{#ifEq sorting 4}} selected="selected" {{/ifEq}}>Importance</option>
+            </select>
         </div>
     </script>
     <script id="note-template" type="text/x-handlebars-template">
         {{#each notes}}
-        <article id="{{id}}" class="note-container">
+        <li id="{{id}}" class="note-container">
             <div class="column info-column">
                 <div class="importance">
                     <i class="fa fa-bolt fa-2x {{#ifLowerEq importance 1}}disabled{{/ifLowerEq}}" aria-hidden="true"></i>
@@ -60,7 +58,7 @@
                 <div class="note-title">{{title}} {{creationDate}}</div>
                 <div class="note-text">{{description}}</div>
             </div>
-        </article>
+        </li>
         {{/each}}
     </script>
 </head>
@@ -78,7 +76,9 @@
         <div class="main-title">
             <h1>My Notes</h1>
         </div>
-        <main id="note-panel" class="note-panel">
+        <main class="note-panel">
+            <div id="action-bar" class="action-bar"></div>
+            <ul id="note-list"></ul>
         </main>
     </div>
 </body>
