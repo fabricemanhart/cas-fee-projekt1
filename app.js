@@ -101,7 +101,7 @@ function setTitleAndButtonText(id) {
 
     }
 
-    document.getElementById("main-title").innerText = text;
+    document.getElementById("page-title").innerText = text;
     document.getElementById("save-button").innerText = text;
 }
 
@@ -138,10 +138,11 @@ function sortAndFilter() {
 function sortByDate(property) {
     return getAllItemFromLocalStorageIncludingId()
         .sort(function (a, b) {
-            if (new Date(a[property]) < new Date(b[property])) return -1;
-            if (new Date(a[property]) > new Date(b[property])) return 1;
-            return 0;
-        });
+        return new Date(a[property]) - new Date(b[property]);
+        //if (new Date(a[property]) < new Date(b[property])) return -1;
+        //if (new Date(a[property]) > new Date(b[property])) return 1;
+        //return 0;
+      });
 }
 
 function sortByValue(property) {
@@ -167,7 +168,7 @@ function loadNotes(notes) {
     var source = document.getElementById("note-template").innerHTML;
     var template = Handlebars.compile(source);
     var htmlString = template(context);
-    document.getElementById("note-list").innerHTML += htmlString;
+    document.getElementById("note-list").innerHTML = htmlString;
 }
 
 function loadActionBar(notes, includingCompleted, sorting) {

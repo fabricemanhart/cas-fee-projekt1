@@ -33,7 +33,7 @@
     </script>
     <script id="note-template" type="text/x-handlebars-template">
         {{#each notes}}
-        <li id="{{id}}" class="note-container">
+        <li id="{{id}}" class="note-list-item">
             <div class="column info-column">
                 <div class="importance">
                     <i class="fa fa-bolt fa-2x {{#ifLowerEq importance 1}}disabled{{/ifLowerEq}}" aria-hidden="true"></i>
@@ -42,7 +42,7 @@
                     <i class="fa fa-bolt fa-2x {{#ifLowerEq importance 4}}disabled{{/ifLowerEq}}" aria-hidden="true"></i>
                     <i class="fa fa-bolt fa-2x {{#ifLowerEq importance 5}}disabled{{/ifLowerEq}}" aria-hidden="true"></i>
                 </div>
-                <div class="date-wrapper {{#if completed}}done{{/if}}">
+                <div class="date-area {{#if completed}}done{{/if}}">
                     <div class="date-text">Due on</div>
                     <div class="date">{{dueDate}}</div>
                 </div>
@@ -64,7 +64,7 @@
 </head>
 <body>
     <header>
-        <a class="header-title" href="note.html">Note Pro</a>
+        <a class="application-title" href="note.html">Note Pro</a>
         <form class="form" action="/" method="post">
             <select class="select-field">
                 <option value="simpleTheme">Simple Theme</option>
@@ -72,11 +72,9 @@
             </select>
         </form>
     </header>
-    <div class="container">
-        <div class="main-title">
-            <h1>My Notes</h1>
-        </div>
-        <main class="note-panel">
+    <div class="page-container">
+            <h1 class="page-title">My Notes</h1>
+        <main class="note-area">
             <div id="action-bar" class="action-bar"></div>
             <ul id="note-list"></ul>
         </main>
