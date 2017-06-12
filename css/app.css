@@ -173,6 +173,7 @@ form .validation-message {
     color: red;
     float: right;
     margin-left: 15px;
+    width: 200px;
 }
 
 .button {
@@ -229,8 +230,4 @@ form .validation-message {
     visibility: visible;
     opacity: 1;
     transition: visibility 0s, opacity 0.5s linear;
-}
-
-.validation-message {
-    width: 200px;
 }
