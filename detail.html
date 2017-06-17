@@ -23,54 +23,77 @@
     <div class="page-container">
         <h1 id="page-title" class="page-title"></h1>
         <form name="note-form">
-            <label>
-                <span>Title <span class="required">*</span></span><input type="text" class="input-field" id="title" value="" />
+            <input type="hidden" id="note-id" /><span></span>
+            <div class="editor-row">
+                <div class="editor-label">
+                    Title <span class="required">*</span>
+                </div>
+                <div class="editor-input">
+                    <input type="text" class="input-field" id="title" value="" />
+                </div>
                 <span id="title-msg" class="validation-message"></span>
                 <span id="title-length-msg" class="validation-message">Title must not contain more than 60 characters</span>
-            </label>
+            </div>
 
-            <label>
-                <span>Description <span class="required">*</span></span><textarea id="description" class="textarea-field"></textarea>
+            <div class="editor-row">
+                <div class="editor-label">Description <span class="required">*</span></div>
+                <div class="editor-input"><textarea id="description" class="textarea-field"></textarea></div>
                 <span id="description-msg" class="validation-message">Please set a description</span>
-            </label>
-            <label>
-                <span>Importance <span class="required">*</span></span>
-                <select class="select-field" id="importance">
-                    <option value="0">
-                        0 - Not important at all
-                    </option>
-                    <option value="1">
-                        1 - Not important
-                    </option>
-                    <option value="2">
-                        2 - Somewhat important
-                    </option>
-                    <option value="3">
-                        3 - Medium important
-                    </option>
-                    <option value="4">
-                        4 - Important
-                    </option>
-                    <option value="5">
-                        5 - Most important
-                    </option>
-                </select>
-            </label>
-            <label>
-                <span>Due to <span class="required">*</span></span>
-                <input class="date-field" type="date" id="duedate">
+            </div>
+            <div class="editor-row">
+                <div class="editor-label">Importance <span class="required">*</span></div>
+                <div class="editor-input">
+                    <select class="select-field" id="importance">
+                        <option value="0">
+                            0 - Not important at all
+                        </option>
+                        <option value="1">
+                            1 - Not important
+                        </option>
+                        <option value="2">
+                            2 - Somewhat important
+                        </option>
+                        <option value="3">
+                            3 - Medium important
+                        </option>
+                        <option value="4">
+                            4 - Important
+                        </option>
+                        <option value="5">
+                            5 - Most important
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="editor-row">
+                <div class="editor-label">Due to <span class="required">*</span></div>
+                <div class="editor-input">
+                    <input class="date-field" type="date" id="duedate">
+                </div>
                 <span id="duedate-msg" class="validation-message">Please set a valid date</span>
-            </label>
-            <label>
-                <input type="hidden" id="note-id" /><span></span>
-                <a id="save-button" class="button" href="javascript:void(0);">Create Note</a>
-                <a class="button cancel" href="note.html">Cancel</a>
-            </label>
+            </div>
+            <div class="editor-row">
+                <div class="editor-label"></div>
+                <div class="editor-input">
+                    <a id="saveButton" class="button" href="javascript:void(0);">Create Note</a>
+                    <a class="button cancel" href="note.html">Cancel</a>
+                </div>
+            </div>
+            <div class="test-title">Too lazy to create notes manually? Let them generate for you:</div>
+
+            <div class="editor-row">
+                <div class="editor-label">Amount of notes to generate</div>
+                <div class="editor-input">
+                    <input class="note-amount" id="noteAmount" type="number" />
+                </div>
+            </div>
+            <div class="editor-row">
+                <div class="editor-label"></div>
+                <div class="editor-input">
+                    <a id="generatorButton" class="button" href="javascript:void(0);">Generate Notes</a>
+                </div>
+            </div>
         </form>
-        <div>
-            <div>Too lazy to create notes manually? Let them generate for you:</div>
-            <div><input id="note-amount" type="number" /><a id="generator-button" class="button" href="javascript:void(0);">Generate Note</a></div>
-        </div>
     </div>
 </body>
 </html>
