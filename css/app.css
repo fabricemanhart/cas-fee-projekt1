@@ -130,17 +130,23 @@ ul {
     margin-top: 2px;
     font-size: 10px;
 }
-
-form label {
-    display: block;
-    margin: 0px 0px 15px 0px;
+ /** {
+     border-style: solid;
+ }*/
+.editor-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 10px 0;
 }
 
-form label > span {
-    width: 130px;
-    float: left;
-    padding-top: 8px;
-    padding-right: 5px;
+.editor-label {
+    justify-content: flex-start;
+    width: 200px;
+}
+
+.editor-input {
+    justify-content: flex-start;
 }
 
 form span.required { color: red; }
@@ -148,7 +154,8 @@ form span.required { color: red; }
 input.input-field,
 .textarea-field,
 .select-field,
-.date-field {
+.date-field,
+.note-amount {
     width: 300px;
     border: 1px solid #C2C2C2;
     -webkit-border-radius: 3px;
@@ -230,4 +237,10 @@ form .validation-message {
     visibility: visible;
     opacity: 1;
     transition: visibility 0s, opacity 0.5s linear;
+}
+
+.test-title {
+    margin-top: 100px;
+    margin-bottom: 40px;
+    font-size: 22px;
 }

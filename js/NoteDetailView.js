@@ -2,9 +2,9 @@
 
 
 const dom = {
-    saveButton: document.getElementById("save-button"),
-    generatorButton: document.getElementById("generator-button"),
-    noteAmountButton: document.getElementById("note-amount")
+    saveButton: document.getElementById("saveButton"),
+    generatorButton: document.getElementById("generatorButton"),
+    noteAmount: document.getElementById("noteAmount")
 }
 
 export class NoteDetailView {
@@ -42,7 +42,7 @@ export class NoteDetailView {
         }
 
         document.getElementById("page-title").innerText = text;
-        document.getElementById("save-button").innerText = text;
+        document.getElementById("saveButton").innerText = text;
     }
 
     getNoteId() {
@@ -95,10 +95,10 @@ export class NoteDetailView {
         }
     }
 
-    showNotification(title) {
+    showNotification(message) {
         let alertArea = document.getElementById("save-alert-area");
         let alert = document.createElement("div");
-        let text = document.createTextNode(`Note "${title}" successfully saved!`);
+        let text = document.createTextNode(message);
 
         alert.appendChild(text);
         alert.classList.add("save-alert");
@@ -108,11 +108,15 @@ export class NoteDetailView {
     }
 
     registerNotesGeneratorAmountHandler() {
-        dom.noteAmountButton.addEventListener("keyup", this.handleAmount.bind(this));
+        dom.noteAmount.addEventListener("keyup", this.handleAmount.bind(this));
+        dom.noteAmount.addEventListener("click", this.handleAmount.bind(this));
     }
 
     handleAmount(event) {
         let number = +event.currentTarget.value || 0;
+        if (number < 0) {
+            number = 0;
+        }
         let buttonText = dom.generatorButton.text.split(' ');
         dom.generatorButton.text = `${buttonText[0]} ${buttonText[1]} (${number})`;
     }

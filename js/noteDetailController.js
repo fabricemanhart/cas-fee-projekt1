@@ -10,6 +10,8 @@ export class NoteDetailController {
         this._view = view;
 
         this._model.addObserver(this._view);
+
+        this._dom = this._view.getDOM();
         this.registerHandlerOnDomElements();
 
         let id = getUrlParameter("id");
@@ -18,9 +20,8 @@ export class NoteDetailController {
     }
 
     registerHandlerOnDomElements() {
-        let dom = this._view.getDOM();
-        dom.saveButton.addEventListener("click", this.save.bind(this));
-        dom.generatorButton.addEventListener("click", this.generateNotes.bind(this));
+        this._dom.saveButton.addEventListener("click", this.save.bind(this));
+        this._dom.generatorButton.addEventListener("click", this.generateNotes.bind(this));
     }
 
     save() {
@@ -32,11 +33,15 @@ export class NoteDetailController {
         } else {
             let id = this._view.getNoteId();
             this._model.save(id, note);
-            this._view.showNotification(note.title);
+            this._view.showNotification(`Note "${note.title}" successfully saved!`);
         }
     }
 
-    generateNotes(amount) {
-        this.generator.generateRandomNotes(20);
+    generateNotes() {
+
+        let amount = this._dom.noteAmount.value;
+
+        this.generator.generateRandomNotes(amount);
+        this._view.showNotification(`${amount} note(s) successfully generated and saved!`);
     }
 }
