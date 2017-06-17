@@ -1,13 +1,17 @@
 ﻿import { formatDate } from "./Shared.js"
 
+
 const dom = {
-    saveButton: document.getElementById("save-button")
+    saveButton: document.getElementById("save-button"),
+    generatorButton: document.getElementById("generator-button"),
+    noteAmountButton: document.getElementById("note-amount")
 }
 
 export class NoteDetailView {
 
     constructor(model) {
         this._model = model;
+        this.registerNotesGeneratorAmountHandler();
     }
 
     getDOM() {
@@ -24,7 +28,7 @@ export class NoteDetailView {
         document.getElementById("note-id").value = this.note.id || "";
         document.getElementById("title").value = this.note.title || "";
         document.getElementById("description").value = this.note.description || "";
-        document.getElementById("importance").value = this.note.importance || "0" ;
+        document.getElementById("importance").value = this.note.importance || "0";
         document.getElementById("duedate").value = this.note.dueDate || "";
     }
 
@@ -102,4 +106,14 @@ export class NoteDetailView {
         alertArea.appendChild(alert);
         setTimeout(function () { alertArea.removeChild(alert); }, 3000);
     }
-}
+
+    registerNotesGeneratorAmountHandler() {
+        dom.noteAmountButton.addEventListener("keyup", this.handleAmount.bind(this));
+    }
+
+    handleAmount(event) {
+        let number = +event.currentTarget.value || 0;
+        let buttonText = dom.generatorButton.text.split(' ');
+        dom.generatorButton.text = `${buttonText[0]} ${buttonText[1]} (${number})`;
+    }
+} 

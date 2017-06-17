@@ -6,7 +6,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
     <link href="font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
-    <script type="module" src="js/NoteDetail.js"></script>
+    <script type="module" src="js/NoteDetail.js">
+    </script>
 </head>
 <body>
     <header>
@@ -60,10 +61,16 @@
                 <input class="date-field" type="date" id="duedate">
                 <span id="duedate-msg" class="validation-message">Please set a valid date</span>
             </label>
-            <input type="hidden" id="note-id" />
-            <a id="save-button" class="button" href="javascript:void(0);">Create Note</a>
-            <a class="button cancel" href="note.html">Cancel</a>
+            <label>
+                <input type="hidden" id="note-id" /><span></span>
+                <a id="save-button" class="button" href="javascript:void(0);">Create Note</a>
+                <a class="button cancel" href="note.html">Cancel</a>
+            </label>
         </form>
+        <div>
+            <div>Too lazy to create notes manually? Let them generate for you:</div>
+            <div><input id="note-amount" type="number" /><a id="generator-button" class="button" href="javascript:void(0);">Generate Note</a></div>
+        </div>
     </div>
 </body>
 </html>

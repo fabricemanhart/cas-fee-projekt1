@@ -1,4 +1,7 @@
 ﻿import { getUrlParameter } from "./Shared.js"
+import { NotesGenerator } from "./NotesGenerator.js";
+import { NoteLocalStorage } from "./NoteLocalStorage.js";
+
 
 export class NoteDetailController {
 
@@ -11,11 +14,13 @@ export class NoteDetailController {
 
         let id = getUrlParameter("id");
         this._model.getNoteById(id);
+        this.generator = new NotesGenerator(new NoteLocalStorage);
     }
 
     registerHandlerOnDomElements() {
         let dom = this._view.getDOM();
         dom.saveButton.addEventListener("click", this.save.bind(this));
+        dom.generatorButton.addEventListener("click", this.generateNotes.bind(this));
     }
 
     save() {
@@ -29,5 +34,9 @@ export class NoteDetailController {
             this._model.save(id, note);
             this._view.showNotification(note.title);
         }
+    }
+
+    generateNotes(amount) {
+        this.generator.generateRandomNotes(20);
     }
 }
