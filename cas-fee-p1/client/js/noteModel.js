@@ -119,11 +119,22 @@ export class NoteModel extends Observable {
             modelvalidationResult.descriptionMsg = "Please set a description";
         }
 
-        if (!note.dueDate) {
+        if (!note.dueDate && isDateValid(note.dueDate)) {
             modelvalidationResult.isModelValid = false;
             modelvalidationResult.dueDateMsg = "Please set a valid date";
         }
 
         return modelvalidationResult;
+    }
+
+    isDateValid(date) {
+        let parsedDate = moment(date); // Chrome Datepicker
+        if (!parsedDate.isValid()) {
+            let parsedDate = moment(date, "DD.MM.YY"); // FireFox input field
+            if (!parsedDate.isValid()) { 
+                return false;
+            }
+        }
+        return true;
     }
 }

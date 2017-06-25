@@ -48,8 +48,6 @@ export class NoteDetailController {
                 .saveOrUpdate(notes[i])
                 .then(this.showNotification.bind(this));
         }   
-
-        this._view.showNotification(`${amount} note(s) successfully generated and saved!`);
     }
 
     showNotification() {

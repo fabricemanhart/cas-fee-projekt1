@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="app.js" />
     <Compile Include="client\js\handlebars-v4.0.10.js" />
+    <Compile Include="client\js\moment-with-locales.js" />
     <Compile Include="client\js\noteDetail.js" />
     <Compile Include="client\js\noteDetailController.js" />
     <Compile Include="client\js\noteDetailView.js" />

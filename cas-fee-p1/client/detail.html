@@ -6,13 +6,13 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
     <link href="font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
-    <script type="module" src="js/noteDetail.js">
-    </script>
+    <script type="module" src="js/noteDetail.js">    </script>
+    <script language="javascript" type="text/javascript" src="js/moment-with-locales.js"></script>
 </head>
 <body>
     <header>
         <a class="application-title" href="note.html">Note Pro</a>
-        <form class="form" action="/" method="post">
+        <form action="/" method="post">
             <select class="select-field">
                 <option value="simpleTheme">Simple Theme</option>
                 <option value="fancyTheme">Fancy Theme</option>
@@ -68,7 +68,7 @@
             <div class="editor-row">
                 <div class="editor-label">Due to <span class="required">*</span></div>
                 <div class="editor-input">
-                    <input class="date-field" type="date" id="duedate">
+                    <input class="date-field" type="date" id="duedate" placeholder="dd.mm.yy">
                 </div>
                 <span id="duedate-msg" class="validation-message">Please set a valid date</span>
             </div>

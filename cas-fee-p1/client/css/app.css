@@ -126,7 +126,8 @@ ul {
     right: 23px;
 }
 
-.done-date {
+.done-date,
+.created-date {
     margin-top: 2px;
     font-size: 10px;
 }

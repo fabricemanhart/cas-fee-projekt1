@@ -25,7 +25,7 @@
                 </select>
             </div>
         </script>
-        <script id="note-template" type="text/x-handlebars-template">
+    <script id="note-template" type="text/x-handlebars-template">
             {{#each notes}}
             <li id="{{id}}" class="note-list-item">
                 <div class="column info-column">
@@ -45,12 +45,13 @@
                         {{#if completed}}<a data-note-id="{{id}}" href="javascript:void(0)" class="button undone js-undone-btn">Undone</a>{{/if}}
                     </div>
                     {{#if completed}}<div class="done-date">done on {{completionDate}}</div>{{/if}}
+                    <div class="created-date">created on {{creationDate}}</div>
                 </div>
                 <div class="column note-column">
                     <div class="note-menu">
                         <a href="detail.html?id={{id}}">Edit</a>
                     </div>
-                    <div class="note-title">{{title}} {{creationDate}}</div>
+                    <div class="note-title">{{title}}</div>
                     <div class="note-text">{{description}}</div>
                 </div>
             </li>
