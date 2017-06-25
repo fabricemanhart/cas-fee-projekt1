@@ -1,0 +1,9 @@
+{
+  "name": "cas-fee-p1",
+  "version": "0.0.0",
+  "description": "cas-fee-p1",
+  "main": "server.js",
+  "author": {
+    "name": "fama"
+  }
+}

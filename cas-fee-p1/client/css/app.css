@@ -1,0 +1,246 @@
+﻿body {
+    font-family: 'Roboto', sans-serif;
+    color: rgb(25, 25, 25);
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.69);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    z-index: 100;
+}
+
+ul {
+    padding: 0;
+}
+
+.application-title {
+    color: white;
+    text-decoration: none;
+    align-self: center;
+    font-size: 20px;
+    margin-left: 30px;
+}
+
+.application-title:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.page-container {
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page-title { margin-bottom: 30px; }
+
+.note-area {
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-style: dotted;
+    border-color: rgba(84, 87, 93, 0.16);
+}
+
+
+.action-bar {
+    box-sizing: border-box;
+    padding: 3px 0 3px 10px;
+    width: 100%;
+    background-color: rgba(84, 87, 93, 0.16);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.note-list-item {
+    width: 800px;
+    height: 240px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    background: #fff;
+    display: flex;
+    margin: 30px 0;
+}
+
+.column {
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-column {
+    align-items: center;
+    background-color: rgba(84, 87, 93, 0.16);
+}
+
+.note-column {
+    flex: 1 auto;
+    position: relative;
+}
+
+.importance > .disabled { color: gray !important; }
+
+.importance > .fa-bolt {
+    font-size: 30px;
+    color: rgba(255, 0, 0, 0.66);
+}
+
+.date-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.date-area.done { text-decoration: line-through; }
+
+.date {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.date-text { font-size: 15px; }
+
+.note-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.note-text {
+    padding-right: 5px;
+    overflow: auto;
+}
+
+.note-menu {
+    position: absolute;
+    top: 18px;
+    right: 23px;
+}
+
+.done-date {
+    margin-top: 2px;
+    font-size: 10px;
+}
+ /** {
+     border-style: solid;
+ }*/
+.editor-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 10px 0;
+}
+
+.editor-label {
+    justify-content: flex-start;
+    width: 200px;
+}
+
+.editor-input {
+    justify-content: flex-start;
+}
+
+form span.required { color: red; }
+
+input.input-field,
+.textarea-field,
+.select-field,
+.date-field,
+.note-amount {
+    width: 300px;
+    border: 1px solid #C2C2C2;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding: 7px;
+    outline: none;
+}
+
+.action-bar .select-field,
+header form .select-field {
+    width: 130px;
+    margin: 10px 30px;
+}
+
+form .input-field:focus, form .textarea-field:focus { border: 1px solid #cc0000; }
+
+form .textarea-field { height: 100px; }
+
+form .validation-message {
+    display: none;
+    color: red;
+    float: right;
+    margin-left: 15px;
+    width: 200px;
+}
+
+.button {
+    background-color: rgba(0, 0, 0, 0.69);
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    outline: none;
+}
+
+.button.done { background-color: rgb(14, 134, 19); }
+
+.button.cancel {
+    background-color: white;
+    color: black;
+    border: 1px solid
+}
+
+.button.cancel:hover {
+    box-sizing: content-box;
+    color: black;
+    border: 1px solid
+}
+
+.button.undone { background-color: rgb(243, 141, 3); }
+
+.button:hover {
+    color: white;
+    opacity: 0.5;
+    text-decoration: none;
+}
+
+.save-alert-area {
+    position: absolute;
+    top: 80px;
+    right: 30px;
+}
+
+.save-alert {
+    margin-top: 20px;
+    background-color: rgba(55, 184, 55, 0.86);
+    color: #ffffff;
+    padding: 30px 50px;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+.save-alert.visible {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+.test-title {
+    margin-top: 100px;
+    margin-bottom: 40px;
+    font-size: 22px;
+}
