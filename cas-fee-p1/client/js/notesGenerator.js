@@ -1,12 +1,8 @@
-﻿import { formatDate, generateGuid } from "./shared.js"
+﻿export class NotesGenerator {
 
-export class NotesGenerator {
-
-    constructor(storage) {
-      this._storage = storage;
-    }
-    
     generateRandomNotes(amount) {
+
+      var notes = [];
 
         for (var i = 0; i < amount; i++) {
             var note = {
@@ -23,8 +19,10 @@ export class NotesGenerator {
                 note.completed = true;
             }
 
-            this._storage.createOrUpdateNoteInLocalStorage(generateGuid(), note);
+            notes.push(note);
         }
+
+        return notes;
     }
 
     getRandomNumber(min, max) {

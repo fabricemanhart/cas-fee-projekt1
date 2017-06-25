@@ -1,8 +1,8 @@
 ﻿import { NoteDetailView } from "./noteDetailView.js";
 import { NoteModel } from "./noteModel.js";
 // import { NoteLocalStorage } from "./noteLocalStorage.js";
-import { NoteService } from "./noteService.js";
 import { NoteDetailController } from "./noteDetailController.js";
+import { NoteService } from "./noteService.js";
     
 // let storage = new NoteLocalStorage();
 let storage = new NoteService();
